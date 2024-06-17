@@ -59,6 +59,7 @@ class IAS:
                 # Extrai o número do endereço entre parênteses
                 endereco_numero = int(endereco.split('(')[1].rstrip(')'))
                 return codigo_op + f' {endereco_numero}'
+            self.programa.append(1)
             return f'{int_para_binario(int(instrucao))}'
 
     def carregar_programa(self):
@@ -103,7 +104,7 @@ class IAS:
 
     def executar(self):
         # Executa cada linha das instruções em programa.
-        for i in range(len(programa)):
+        for i in range(len(self.programa)):
             instrucao = self.memoria[self.PC] # Usa o PC(Program counter) para executar as instruções em sua respectiva ordem.
             if ' ' in instrucao: # Se houver espaço na instrução que indica que há um opcode.
                 split = instrucao.split(' ')
@@ -213,25 +214,6 @@ class IAS:
                     print(f'{indice}: {valor} // Int: {int(valor, 2)}')
         print(f'AC in Binary: {self.AC} // Int: {(int(self.AC, 2))}' )
         print(f'MQ in Binary: {self.MQ} // Int: {(int(self.MQ, 2))}')
-
-# Programa
-programa = [
-    '30',
-    '9',
-    '5',
-    '32',
-    '273',
-    'LOADMQMX M(0)',
-    'MUL M(1)',
-    'DIV M(2)',
-    'LOADMQ M(1)',
-    'ADD M(3)',
-    'STOR M(18)',
-    'LOAD M(0)',
-    'ADD M(4)',
-    'STOR M(19)'
-]
-
 
 if __name__ == '__main__':
     ias = IAS()
